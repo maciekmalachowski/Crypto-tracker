@@ -1,46 +1,28 @@
-from email import message
-import smtplib
-import imghdr
-from email.message import EmailMessage
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv
 from data import get_data
+from emails import SendingEmail
+from data_analysis import checkingData
+import sys
+import time
 
+start_time = time.time()
+run_time = 30
+# symbol, price, price_yesterday = get_data(sys.argv[1])
 
-class SendingEmail:
-    def __init__(self):
-        dotenv_path = join(dirname(__file__), '.env')
-        load_dotenv(dotenv_path)
-        self.adress = os.environ.get("email_adress")
-        self.password = os.environ.get("email_password")
+print(f"Program will run for {run_time} seconds.")
 
-    def checkingData(self):
-        symbol, actual_price, price_at_10 = get_data()
-        if float(actual_price) > (price_at_10):
-            email_message = f"{symbol} cost more than at 10am by {round(actual_price-price_at_10, 3)}$"
-        if float(actual_price) < (price_at_10):
-            email_message = f"{symbol} cost less than at 10am by {round(price_at_10-actual_price, 3)}$"
-        return symbol, email_message
-        
-    def sendEmail(self):
-        symbol, email_message = self.checkingData()
-        msg = EmailMessage()
-        msg['Subject'] = f"{symbol} Notification"
-        msg['From'] = self.adress
-        msg['To'] = self.adress
-        msg.set_content(f"{email_message}")
+if len(sys.argv) == 1:
+    sys.argv.append("BTCUSDT")
+symbol, price, price_yesterday = get_data(sys.argv[1])
 
-        with open('btc.png', 'rb') as f:
-            file_data = f.read()
-            file_type = imghdr.what(f.name)
-            file_name = f.name
-        msg.add_attachment(file_data, maintype='image', subtype=file_type, filename=file_name)
+while True:
+    if (time.time() - start_time) > run_time:
+        break
+    if symbol is None:
+        print("Try again. If this persists, contact the developer. Program is ending.")
+        sys.exit(1)
 
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-            smtp.login(self.adress, self.password)
-            smtp.send_message(msg)
-
+    email_message = checkingData(symbol, price, price_yesterday)
+    time.sleep(10)
 
 x = SendingEmail()
-x.sendEmail()
+x.sendEmail(symbol, email_message)

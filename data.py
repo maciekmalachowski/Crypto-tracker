@@ -1,23 +1,28 @@
 import requests
 import json
-from urllib import request
 import datetime
 
-def get_data():
+def get_data(symbol):
     try:
-        r = requests.get("https://www.binance.com/api/v3/ticker/price?symbol=BTCUSDT")
+        r = requests.get(f"https://www.binance.com/api/v3/ticker/price?symbol={symbol}")
+        candle = requests.get(f"https://www.binance.com/api/v1/klines?symbol={symbol}&interval=1d")
 
         values = r.json()
         print(values['symbol'], values['price'])
         symbol = values['symbol']
         price = float(values['price'])
 
-        price_at_10 = 38382.72000000
+        candle_values = candle.json()
+        price_yesterday = float(candle_values[-2][4])#closing
+
         now = datetime.datetime.now()
         now = now.strftime("%H:%M:%S")
-        f = open('coin_price.txt', 'a')
-        f.write(f"{symbol}, {price}, time: {now}; \n")
-        return symbol, price, price_at_10
+        with open('coin_price.txt', 'a') as f:
+            f.write(f"{symbol},{price},{now}\n")
+        return symbol, price, price_yesterday
 
-    except:
-        print("Somethink wrong :( Try later.")
+    except Exception as e:
+        print(f"{str(e)} is wrong.")
+        return None, None, None
+    
+
