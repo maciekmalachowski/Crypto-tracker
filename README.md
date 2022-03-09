@@ -1,4 +1,5 @@
 # Crypto tracker
+----------------
 This **Tracker** gets data from ``binance api`` using **requests** library, and then loads current and yesterday price of the given cryptocurrency.
 
 After that it **sends an email** with an appropriate message, if the price is higher or lower than yesterday.
