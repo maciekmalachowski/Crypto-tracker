@@ -17,7 +17,7 @@ To use it you have to go to the `Crypto-tracker\tracker` directory in the consol
 ```
 C:\Users\user> cd Crypto-tracker\tracker
 ```
-Then just start `tracker.py` in console.
+Then just start `tracker.py` in console:
 ```
 C:\Users\user\Crypto-tracker\tracker> python tracker.py
 ```
