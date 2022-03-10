@@ -22,6 +22,6 @@ Then just start `tracker.py` in console.
 C:\Users\user\Crypto-tracker\tracker> python tracker.py
 ```
 ## Error with sending emails
-You may have an error related to your email. That's becaouse google blocks some activities on mail.
+You may have an error related to your email. That's because google blocks some activities on mail.
 
 In this case you should `turn on` less secure apps option at this link https://myaccount.google.com/lesssecureapps.
