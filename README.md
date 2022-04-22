@@ -15,11 +15,11 @@ In the meantime the name of cryptocurrency, price and time program writes to the
 ## Setup 
 To use it you have to go to the `Crypto-tracker\tracker` directory in the console:
 ```
-C:\Users\user> cd Crypto-tracker\tracker
+cd Crypto-tracker\tracker
 ```
 Then just start `tracker.py` in console:
 ```
-C:\Users\user\Crypto-tracker\tracker> python tracker.py
+python tracker.py
 ```
 ## Error with sending emails
 You may have an error related to your email. That's because google blocks some activities on mail.
