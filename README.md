@@ -15,7 +15,7 @@ In the meantime the name of cryptocurrency, price and time program writes to the
 ## Setup 
 To use it you have to go to the `Crypto-tracker\tracker` directory in the console:
 ```
-cd Crypto-tracker\tracker
+cd Crypto-tracker/tracker
 ```
 Then just start `tracker.py` in console:
 ```
